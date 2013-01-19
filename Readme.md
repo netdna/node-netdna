@@ -47,14 +47,10 @@ function callback(err, response) {
 
 ## API
 
-All methods take a `data` object as their first param and a callback as their last param.
-
-`callback(err, response)` as their last parameter.
-
 * `netdna.get` - `(url, callback)`
 * `netdna.delete` - `(url, callback)`
-* `netdna.post` - `(url, body, contentType, callback)` **`body` = {}, contentType is optional**
-* `netdna.put` - `(url, body, contentType, callback)` **`body` = {}, contentType is optional**
+* `netdna.post` - `(url, body, callback)`
+* `netdna.put` - `(url, body, callback)`
 
 Docs: <https://developer.netdna.com/api/docs>
 
