@@ -1,0 +1,44 @@
+{
+  "name": "netdna",
+  "description": "NetDNA API wrapper and CLI for node.js.",
+  "version": "0.0.1",
+  "author": "Nick Baugh <niftylettuce@gmail.com>",
+  "contributors": [
+    {
+      "name": "Nick Baugh",
+      "email": "niftylettuce@gmail.com"
+    }
+  ],
+  "keywords": [
+    "cdn",
+    "netdna",
+    "maxcdn",
+    "s3",
+    "rackspace"
+  ],
+  "homepage": "https://github.com/niftylettuce/node-netdna",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/niftylettuce/node-netdna.git"
+  },
+  "engines": {
+    "node": "0.8.x",
+    "npm": "1.1.x"
+  },
+  "main": "netdna",
+  "bin": {
+    "netdna": "./bin/netdna"
+  },
+  "dependencies": {
+    "commander": "~1.1.1",
+    "underscore": "~1.4.3",
+    "oauth": "~0.9.8",
+    "qs": "~0.5.3"
+  },
+  "devDependencies": {
+    "vows": "*"
+  },
+  "scripts": {
+    "test": "vows test/*"
+  }
+}

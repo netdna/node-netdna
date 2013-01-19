@@ -1,0 +1,63 @@
+#!/usr/bin/env node
+
+//     node-netdna
+//     Copyright (c) 2013- Nick Baugh <niftylettuce@gmail.com>
+//     MIT Licensed
+
+var program = require('commander')
+  , _       = require('underscore')
+  , version = require('../package').version
+
+program
+  .version(version)
+  .parse(process.argv)
+
+var netdna = require('../netdna')({
+    companyAlias: program.args[0]
+  , consumerKey: program.args[1]
+  , consumerSecret: program.args[2]
+})
+
+var method
+  , path
+  , list = [ 'get', 'delete', 'post', 'put' ]
+
+console.log('View the docs: <https://developer.netdna.com/api/docs> \n')
+
+console.log('Method:')
+program.choose(list, getMethod)
+
+function getMethod(_method) {
+  method = list[_method]
+  program.prompt('Path (e.g. account.json): ', getPath)
+}
+
+function getPath(_path) {
+  path = _path
+  switch(method) {
+    case 'post':
+    case 'put':
+      program.prompt('Enter JSON body (e.g. { "name": "Justin" })', params)
+      break;
+    default:
+      netdna[method](path, callback)
+  }
+}
+
+function params(json) {
+  try {
+    json = JSON.parse(json)
+  } catch(e) {
+    throw new Error('Invalid JSON body')
+  }
+  netdna[method](path, json, callback)
+}
+
+function callback(err, data) {
+  if (err) {
+    console.log(err)
+    process.exit(1)
+  }
+  console.log(data)
+  process.exit()
+}
