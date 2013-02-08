@@ -1,5 +1,5 @@
 
-# netdna <sup>0.0.1</sup>
+# netdna <sup>0.0.2</sup>
 
 NetDNA API wrapper and CLI for node.js.
 

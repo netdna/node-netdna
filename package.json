@@ -1,7 +1,7 @@
 {
   "name": "netdna",
   "description": "NetDNA API wrapper and CLI for node.js.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Nick Baugh <niftylettuce@gmail.com>",
   "contributors": [
     {
@@ -33,7 +33,8 @@
     "commander": "~1.1.1",
     "underscore": "~1.4.3",
     "oauth": "~0.9.8",
-    "qs": "~0.5.3"
+    "qs": "~0.5.3",
+    "request": "~2.12.0"
   },
   "devDependencies": {
     "vows": "*"
