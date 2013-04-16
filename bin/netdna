@@ -6,6 +6,7 @@
 
 var program = require('commander')
   , _       = require('underscore')
+  , util    = require('util')
   , version = require('../package').version
 
 program
@@ -58,6 +59,6 @@ function callback(err, data) {
     console.log(err)
     process.exit(1)
   }
-  console.log(data)
+  console.log(util.inspect(data, false, null))
   process.exit()
 }

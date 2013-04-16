@@ -3,8 +3,7 @@
 //     Copyright (c) 2013- Nick Baugh <niftylettuce@gmail.com> (http://niftylettuce.com)
 //     MIT Licensed
 
-var querystring = require('querystring')
-  , path        = require('path')
+var path        = require('path')
   , request     = require('request')
   , qs          = require('qs')
   , OAuth       = require('oauth').OAuth
