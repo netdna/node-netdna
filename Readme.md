@@ -1,5 +1,5 @@
 
-# netdna <sup>[![Version Badge](http://vb.teelaun.ch/niftylettuce/netdna.svg)](https://npmjs.org/package/netdna)</sup>
+# netdna <sup>[![Version Badge](http://vb.teelaun.ch/niftylettuce/node-netdna.svg)](https://npmjs.org/package/netdna)</sup>
 
 NetDNA API wrapper and CLI for node.js.
 
