@@ -45,6 +45,5 @@
     "sub": true,
     "strict": false,
     "white": false,
-    "indent": 2,
     "asi": true
 }

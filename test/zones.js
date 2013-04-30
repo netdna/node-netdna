@@ -23,6 +23,18 @@ vows.describe('pull').addBatch({
       assert.isDefined(response.data)
       assert.isDefined(response.data.pullzones)
     }
+  },
+
+  'post pull': {
+    topic: function() {
+      netdna.post('zones/pull.json', {
+          name: 'Testing-Local'
+        , url: 'http://test.com'
+      }, this.callback)
+    }, 'returns response': function(err, response) {
+      assert.isNull(err)
+      assert.isDefined(response)
+    }
   }
 
 }).export(module, { error: false })

@@ -5,7 +5,6 @@
 
 var path        = require('path')
   , request     = require('request')
-  , qs          = require('qs')
   , OAuth       = require('oauth').OAuth
   , version     = require('./package').version
 
@@ -61,13 +60,13 @@ NetDNA.prototype.delete = function del(url, callback) {
 NetDNA.prototype.post = function post(url, body, contentType, callback) {
   if (typeof contentType === 'function') {
     callback = contentType
-    contentType = null
+    contentType = 'application/x-www-form-urlencoded; charset=UTF-8'
   }
   this.oa.post(
       this._makeUrl(url)
     , '' // token
     , '' // secret
-    , qs.stringify(body)
+    , body
     , contentType
     , this._parse(callback)
   )
@@ -76,13 +75,13 @@ NetDNA.prototype.post = function post(url, body, contentType, callback) {
 NetDNA.prototype.put = function put(url, body, contentType, callback) {
   if (typeof contentType === 'function') {
     callback = contentType
-    contentType = null
+    contentType = 'application/x-www-form-urlencoded; charset=UTF-8'
   }
   this.oa.put(
       this._makeUrl(url)
     , '' // token
     , '' // secret
-    , qs.stringify(body)
+    , body
     , contentType
     , this._parse(callback)
   )
