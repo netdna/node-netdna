@@ -1,12 +1,16 @@
 {
   "name": "netdna",
   "description": "NetDNA API wrapper and CLI for node.js.",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": "Nick Baugh <niftylettuce@gmail.com>",
   "contributors": [
     {
       "name": "Nick Baugh",
       "email": "niftylettuce@gmail.com"
+    },
+    {
+      "name": "Dali Kilani",
+      "email": "dali@ifeelgoods.com"
     }
   ],
   "keywords": [
