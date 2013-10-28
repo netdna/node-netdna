@@ -1,6 +1,4 @@
-
 //     node-netdna
-//     Copyright (c) 2013- Nick Baugh <niftylettuce@gmail.com>
 //     MIT Licensed
 
 var vows   = require('vows');

@@ -1,6 +1,4 @@
-
 //     node-netdna
-//     Copyright (c) 2013- Nick Baugh <niftylettuce@gmail.com> (http://niftylettuce.com)
 //     MIT Licensed
 
 var path        = require('path');
@@ -39,7 +37,7 @@ function NetDNA(opts) {
 }
 
 NetDNA.prototype._makeUrl = function _makeUrl(url) {
-  return this.API_SERVER + '/' + this.companyAlias + '/' + url;
+  return this.API_SERVER + '/' + path.join(this.companyAlias, url);
 };
 
 NetDNA.prototype.get = function get(url, callback) {
@@ -52,12 +50,39 @@ NetDNA.prototype.get = function get(url, callback) {
 };
 
 NetDNA.prototype.delete = function del(url, callback) {
-  this.oa.delete(
-      this._makeUrl(url)
-    , '' // token
-    , '' // secret
-    , this._parse(callback)
-  );
+  if (typeof url === 'string') {
+      this.oa.delete(
+          this._makeUrl(url)
+        , '' // token
+        , '' // secret
+        , this._parse(callback)
+      );
+  } else {
+      var results = {};
+      var errors  = null;
+      var count   = 0;
+      var that    = this;
+      url.forEach(function(u) {
+          that.oa.delete(
+            that._makeUrl(u),
+            '', // token
+            '', // secret
+            that._parse(function (err, data) {
+                if (err) {
+                    errors = errors || {};
+                    errors[u] = err;
+                } else {
+                    results[u] = data;
+                }
+
+                // am I done
+                if (++count === url.length) {
+                    callback(errors, results);
+                }
+            })
+          );
+      });
+  }
 };
 
 NetDNA.prototype.post = function post(url, body, contentType, callback) {
