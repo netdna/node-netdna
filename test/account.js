@@ -3,25 +3,24 @@
 //     Copyright (c) 2013- Nick Baugh <niftylettuce@gmail.com>
 //     MIT Licensed
 
-var vows   = require('vows')
-  , assert = require('assert')
-
-var time = new Date().getTime()
+var vows   = require('vows');
+var assert = require('assert');
+var time   = new Date().getTime();
 
 var netdna = require('../netdna')({
     companyAlias: process.env.ALIAS
   , consumerKey: process.env.KEY
   , consumerSecret: process.env.SECRET
-})
+});
 
 vows.describe('account').addBatch({
 
   'get account info': {
     topic: function() {
-      netdna.get('account.json', this.callback)
+      netdna.get('account.json', this.callback);
     }, 'returns response': function(err, response) {
-      assert.isNull(err)
-      assert.isDefined(response)
+      assert.isNull(err);
+      assert.isDefined(response);
     }
   },
 
@@ -29,20 +28,20 @@ vows.describe('account').addBatch({
     topic: function() {
       netdna.put('account.json', {
         name: time
-      }, this.callback)
+      }, this.callback);
     }, 'returns response': function(err, response) {
-      assert.isNull(err)
-      assert.isDefined(response)
-      assert.equal(response.data.account.name, time)
+      assert.isNull(err);
+      assert.isDefined(response);
+      assert.equal(response.data.account.name, time);
     }
   },
 
   'get account address': {
     topic: function() {
-      netdna.get('account.json/address', this.callback)
+      netdna.get('account.json/address', this.callback);
     }, 'returns response': function(err, response) {
-      assert.isNull(err)
-      assert.isDefined(response)
+      assert.isNull(err);
+      assert.isDefined(response);
     }
   },
 
@@ -50,12 +49,12 @@ vows.describe('account').addBatch({
     topic: function() {
       netdna.put('account.json/address', {
         street1: time
-      }, this.callback)
+      }, this.callback);
     }, 'returns response': function(err, response) {
-      assert.isNull(err)
-      assert.isDefined(response)
-      assert.equal(response.data.address.street1, time)
+      assert.isNull(err);
+      assert.isDefined(response);
+      assert.equal(response.data.address.street1, time);
     }
   }
 
-}).export(module, { error: false })
+}).export(module, { error: false });
