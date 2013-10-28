@@ -57,22 +57,27 @@ Docs: <https://developer.netdna.com/api/docs>
 
 ## Tests
 
-To run tests, install `vows`:
+To run tests, ensure `vows` is installed:
 
 ```bash
-npm install vows
+npm install
 ```
 
 Then run:
 
 ```bash
-ALIAS=alias KEY=key SECRET=secret vows test/*
+# unit tests
+npm test
+
+# intagration tests
+ALIAS=alias KEY=key SECRET=secret npm run intagration
 ```
 
 
 ## Contributors
 
 * Nick Baugh <niftylettuce@gmail.com>
+* Joshua Mervine <joshua@mervine.net>
 
 
 ## License

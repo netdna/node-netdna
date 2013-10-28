@@ -43,6 +43,7 @@
     "vows": "*"
   },
   "scripts": {
-    "test": "vows test/*"
+    "test": "vows test/*_unit.js",
+    "intagration": "vows test/*_int.js"
   }
 }
