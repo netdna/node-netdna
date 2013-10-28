@@ -26,7 +26,7 @@
     "url": "https://github.com/niftylettuce/node-netdna.git"
   },
   "engines": {
-    "node": "0.8.x",
+    "node": ">0.8",
     "npm": "1.1.x"
   },
   "main": "netdna",
