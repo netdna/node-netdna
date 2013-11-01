@@ -48,6 +48,6 @@
   },
   "scripts": {
     "test": "vows test/*_unit.js",
-    "intagration": "vows test/*_int.js"
+    "integration": "vows test/*_int.js"
   }
 }

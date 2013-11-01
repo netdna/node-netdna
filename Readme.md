@@ -69,8 +69,8 @@ Then run:
 # unit tests
 npm test
 
-# intagration tests
-ALIAS=alias KEY=key SECRET=secret npm run intagration
+# integration tests
+ALIAS=alias KEY=key SECRET=secret npm run integration
 ```
 
 
