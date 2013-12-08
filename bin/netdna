@@ -1,90 +1,102 @@
 #!/usr/bin/env node
-
-//     node-netdna
-//     Copyright (c) 2013- Nick Baugh <niftylettuce@gmail.com>
-//     MIT Licensed
+// node-netdna
+// MIT Licensed
 
 var program = require('commander')
-  , _       = require('underscore')
-  , util    = require('util')
-  , version = require('../package').version
+    , _       = require('underscore')
+    , util    = require('util')
+    , version = require('../package').version;
 
 program
-  .version(version)
-  .option('-a, --companyAlias <alias>', 'specify the company alias')
-  .option('-k, --consumerKey <key>', 'specify the consumer Key for the API')
-  .option('-s, --consumerSecret <secret>', 'specify the consumer Secret for the API')
-  .option('-m, --method <method>', 'specify the HTTP method to user to interact with API [get]')
-  .option('-p, --path <path/resource>', 'specify the path to query [account.json]')
-  .option('-b, --body <json_body>', 'stringified JSON object to send to the API (only valid for put, post or delete methods)')
-  .parse(process.argv)
+    .version(version)
+    .option('-a, --companyAlias <alias>', 'specify the company alias')
+    .option('-k, --consumerKey <key>', 'specify the consumer Key for the API')
+    .option('-s, --consumerSecret <secret>', 'specify the consumer Secret for the API')
+    .option('-m, --method <method>', 'specify the HTTP method to user to interact with API [get]')
+    .option('-p, --path <paths/resources>', 'specify the path to query [account.json]')
+    .option('-b, --body <json_body>', 'stringified JSON object to send to the API (only valid for put, post or delete methods)')
+    .on('--help', function() {
+        console.log('Note: delete method supports comma delimited string of paths.');
+        console.log('');
+        console.log(' Example:');
+        console.log(' $ netdna -a alias -k key -s secret -m delete -p "file1, file2, file3"');
+        console.log('');
+    })
+    .parse(process.argv);
+
+if (!program.companyAlias || !program.consumerKey || !program.consumerSecret) {
+    program.help();
+}
 
 var netdna = require('../netdna')({
-    companyAlias: program.companyAlias
-  , consumerKey: program.consumerKey
-  , consumerSecret: program.consumerSecret
-})
+      companyAlias: program.companyAlias
+    , consumerKey: program.consumerKey
+    , consumerSecret: program.consumerSecret
+});
 
 var method
-  , path
-  , list = [ 'get', 'delete', 'post', 'put' ]
+    , path
+    , list = [ 'get', 'delete', 'post', 'put' ];
 
-console.log('View the docs: <https://developer.netdna.com/api/docs> \n')
+console.log('View the docs: <https://developer.netdna.com/api/docs> \n');
 
 
-if (program.method ) {
-  // Is this method valid?
-  var methodIndex = list.indexOf(program.method);
-  if (methodIndex != -1) {
-    getMethod(methodIndex);
-  } else {
-    console.log ('invalid Method provided, valid methods are : ' + list.join());
-    process.exit();
-  }
+if (program.method) {
+    // Is this method valid?
+    var methodIndex = list.indexOf(program.method);
+    if (methodIndex !== -1) {
+        getMethod(methodIndex);
+    } else {
+        console.log ('invalid Method provided, valid methods are : ' + list.join());
+        process.exit();
+    }
 } else {
-  console.log('Method:')
-  program.choose(list, getMethod)
+    console.log('Method:');
+    program.choose(list, getMethod);
 }
 
 function getMethod(_method) {
-  method = list[_method]
-  if (program.path) {
-    getPath(program.path);
-  } else {
-    program.prompt('Path (e.g. account.json): ', getPath)
-  }
+    method = list[_method];
+    if (program.path) {
+        getPath(program.path);
+    } else {
+        program.prompt('Path (e.g. account.json): ', getPath);
+    }
 }
 
 function getPath(_path) {
-  path = _path
-  switch(method) {
-    case 'post':
-    case 'put':
-    if (!program.body) {
-      program.prompt('Enter JSON body (e.g. { "name": "Justin" })', params)
-    } else {
-      params(program.body);
+    path = _path;
+    switch(method) {
+        case 'post':
+        case 'put':
+            if (!program.body) {
+                program.prompt('Enter JSON body (e.g. { "name": "Justin" })', params);
+            } else {
+                params(program.body);
+            }
+            break;
+        case 'delete':
+            path = path.split(',').map(function(s) { return s.trim(); });
+            path = (path.length === 1 ? path[0] : path);
+        default:
+            netdna[method](path, callback);
     }
-      break;
-    default:
-      netdna[method](path, callback)
-  }
 }
 
 function params(json) {
-  try {
-    json = JSON.parse(json)
-  } catch(e) {
-    throw new Error('Invalid JSON body!')
-  }
-  netdna[method](path, json, callback)
+    try {
+        json = JSON.parse(json);
+    } catch(e) {
+        throw new Error('Invalid JSON body!');
+    }
+    netdna[method](path, json, callback);
 }
 
 function callback(err, data) {
-  if (err) {
-    console.log(err)
-    process.exit(1)
-  }
-  console.log(util.inspect(data, false, null))
-  process.exit()
+    if (err) {
+        console.log(err);
+        process.exit(1);
+    }
+    console.log(util.inspect(data, false, null));
+    process.exit();
 }
