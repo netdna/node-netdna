@@ -90,6 +90,9 @@ NetDNA.prototype.post = function post(url, body, contentType, callback) {
     callback = contentType;
     contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
   }
+  if (typeof body !== 'string') {
+    body = JSON.stringify(body);
+  }
   this.oa.post(
       this._makeUrl(url)
     , '' // token
@@ -105,6 +108,9 @@ NetDNA.prototype.put = function put(url, body, contentType, callback) {
     callback = contentType;
     contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
   }
+  if (typeof body !== 'string') {
+    body = JSON.stringify(body);
+  }
   this.oa.put(
       this._makeUrl(url)
     , '' // token
@@ -114,13 +120,6 @@ NetDNA.prototype.put = function put(url, body, contentType, callback) {
     , this._parse(callback)
   );
 };
-
-/*
-// used for 3-legged oauth in combination with opts.callback
-that.oa.getOAuthRequestToken(function(err, token, secret, results) {
-  if (err) return callback(err)
-})
-*/
 
 NetDNA.prototype._parse = function _parse(callback) {
   return function(err, data, response) {
